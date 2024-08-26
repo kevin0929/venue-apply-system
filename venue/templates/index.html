@@ -63,11 +63,14 @@
         }
     });
 
-    var bookUrl = "{{ url_for('venue_api.reserve', vid='id', date='datetime') }}".replace('id', "{{ data.current_venue.vid }}");
+    var applyBaseUrl = "{{ url_for('venue_api.apply', vid='id', datetime='datetime') }}".replace('id', "{{ data.current_venue.vid }}");
+    var deleteBaseUrl = "{{ url_for('venue_api.delete', vid='id', datetime='datetime') }}".replace('id', "{{ data.current_venue.vid }}");
+    var venueUrl = "{{ url_for('venue_api.get_applications', vid='id') }}".replace('id', "{{ data.current_venue.vid }}")
 
     $('#calendar').on('click', '.day', function() {
         var date = $(this).data('date');
-        bookUrl = bookUrl.replace('datetime', date);
+        applyUrl = applyBaseUrl.replace('datetime', date);
+        deleteUrl = deleteBaseUrl.replace('datetime', date);
     });
 </script>
 </html>
