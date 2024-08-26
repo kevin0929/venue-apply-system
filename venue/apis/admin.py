@@ -42,13 +42,13 @@ def add_venue():
 @admin_api.route("/venue/<vid>/delete", methods=["GET", "POST"])
 def delete_venue(vid):
     venue_manager = VenueManager()
-    venue_manager.delete_venue_by_id(vid)
+    venue_manager.delete_venue(vid)
 
     return redirect(url_for("admin_api.venue"))
 
 
-@admin_api.route("/venue/<vid>/modify_venue_name", methods=["GET", "POST"])
-def modify_venue_name(vid):
+@admin_api.route("/venue/<vid>/edit_venue", methods=["GET", "POST"])
+def edit_venue(vid):
     venue_manager = VenueManager()
     venue = venue_manager.get_venue_by_id(vid)
 
@@ -56,7 +56,7 @@ def modify_venue_name(vid):
         new_name = request.form.get("venue_name")
 
     # modify name
-    venue_manager.modify_venue_name(venue=venue, new_name=new_name)
+    venue_manager.edit_venue(venue=venue, new_name=new_name)
 
     return redirect(url_for("admin_api.venue"))
 

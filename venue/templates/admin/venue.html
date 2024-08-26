@@ -68,7 +68,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editVenueModalLabel">編輯場地名稱</h5>
+                    <h5 class="modal-title" id="editVenueModalLabel">編輯場地</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -124,7 +124,7 @@
             modal.find('#editVenueName').val(venueName);
         
             var form = modal.find('#editVenueForm');
-            var actionUrl = "{{ url_for('admin_api.modify_venue_name', vid='VID') }}".replace('VID', venueId);
+            var actionUrl = "{{ url_for('admin_api.edit_venue', vid='VID') }}".replace('VID', venueId);
             form.attr('action', actionUrl);
         });
 

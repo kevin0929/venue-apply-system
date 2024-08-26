@@ -48,8 +48,8 @@ class VenueManager:
             self.session.rollback()
             print(f"Error occurred: {e}")
 
-    def delete_venue_by_id(self, vid) -> None:
-        '''Delete venue by id from db'''
+    def delete_venue(self, vid) -> None:
+        '''Delete venue from db'''
 
         try:
             venue = self.session.query(Venue).filter_by(vid=vid).first()
@@ -60,7 +60,7 @@ class VenueManager:
             print(f"Error occurred: {e}")
 
     
-    def modify_venue_name(self, venue, new_name) -> None:
+    def edit_venue(self, venue, new_name) -> None:
         '''Modify venue's name'''
 
         try:
