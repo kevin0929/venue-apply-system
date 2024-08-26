@@ -25,6 +25,24 @@ class ApplicationManager:
         return applications
 
 
+    def get_order_from_venue_and_datetime(self, venue, datetime) -> int:
+        '''Get order by venue and datetime'''
+
+        try:
+            apps = self.session.query(Application).filter_by(vid=venue.vid, datetime=datetime).order_by(Application.order.asc()).all()
+
+            if apps is None:
+                return (None, "The vid and datetime does not match any application.")
+
+            # select max order for this
+            order_list = [app.order for app in apps]
+            max_order = max(order_list)
+        except Exception:
+            return self.operationError
+
+        return max_order
+
+
     def check_application_conflict(self, venue, datetime, order=1) -> bool:
         '''Check whether the venue has reverse in same datetime'''
 

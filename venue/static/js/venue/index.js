@@ -75,6 +75,20 @@ $(document).ready(function() {
         })
     })
 
+    $('#queue').click(function() {
+        $.ajax({
+            type: "POST",
+            url: queueUrl,
+            success: function(response) {
+                alert('success to queue!');
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('failed: ' + error);
+            }
+        })
+    })
+
     function formatDate(date) {
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
