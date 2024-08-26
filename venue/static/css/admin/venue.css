@@ -1,0 +1,55 @@
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.btn-success {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+
+.venue-list {
+    margin-top: 2rem;
+}
+
+.venue-item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.venue-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary, .btn-danger {
+    font-size: 0.875rem;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+}
+
+.btn-primary:hover, .btn-danger:hover {
+    opacity: 0.9;
+}
+
+.row {
+    align-items: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.btn-secondary {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    margin-top: 2rem;
+}

@@ -15,7 +15,7 @@ class ApplicationManager:
         '''Get all applications in db'''
 
         try:
-            applications = self.session.query(Application)
+            applications = self.session.query(Application).all()
 
             if applications is None:
                 return (None, 'The application is empty now.')
