@@ -68,6 +68,6 @@ def get_applications(vid):
     app_manager = ApplicationManager()
 
     apps = app_manager.get_all_application()
-    app_data = [{"date": app.datetime, "user": app.user.username} for app in apps]
+    app_data = [{"date": app.datetime, "user": app.user.username, "venue_id": app.venue.vid} for app in apps]
 
     return jsonify(app_data)

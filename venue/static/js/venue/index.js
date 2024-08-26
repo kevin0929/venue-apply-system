@@ -13,8 +13,7 @@ $(document).ready(function() {
             var dayDate = new Date(date.getFullYear(), date.getMonth(), day);
             var formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + day;
 
-            var application = applications.find(app => app.date === formattedDate);
-            console.log(application);
+            var application = applications.find(app => (app.date == formattedDate && app.venue_id == venueid));
             if (application) {
                 calendar.append('<div class="day reserved" data-date="' + formattedDate + '" data-toggle="modal" data-target="#bookingModal">' +
                     day + '<br><small>' + application.user + '</small></div>');
