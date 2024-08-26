@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愛普雲場地預約系統</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/venue/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ url_for('static', filename='js/venue/index.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">愛普雲場地預約系統</h1>
+        
+        <div class="form-group mt-4">
+            <label for="venue-select">選擇場地:</label>
+            <select class="form-control" id="venue-select">
+                <option value="" disabled selected>{{ data.current_venue.name }}</option>
+                {% for venue in data.venues%}
+                    <option value={{ venue.vid }}> {{ venue.name }} </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group mt-4">
+            <label for="datepicker">選擇日期:</label>
+            <input type="text" class="form-control" id="datepicker">
+        </div>
+
+        <div class="calendar row" id="calendar">
+        </div>
+    </div>
+
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">預約選項</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-primary" id="reserve">我想預約</button>
+                    <button class="btn btn-warning" id="queue">排隊預約</button>
+                    <button class="btn btn-danger" id="cancel">取消預約</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $('#venue-select').change(function () {
+        var venueId = $(this).val();
+        if (venueId) {
+            var redirectUrl = "{{ url_for('venue_api.index', vid='vid') }}".replace('vid', venueId);
+            window.location.href = redirectUrl;
+        }
+    });
+
+    var bookUrl = "{{ url_for('venue_api.reserve', vid='id', date='datetime') }}".replace('id', "{{ data.current_venue.vid }}");
+
+    $('#calendar').on('click', '.day', function() {
+        var date = $(this).data('date');
+        bookUrl = bookUrl.replace('datetime', date);
+    });
+</script>
+</html>

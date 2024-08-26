@@ -1,0 +1,4 @@
+# config file
+
+[sql]
+url = "postgresql://venue:venue@database:5432/venue_db"

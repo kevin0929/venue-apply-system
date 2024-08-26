@@ -1,0 +1,17 @@
+FROM python:3.10
+LABEL maintainer="tn781927@yahoo.com.tw"
+
+RUN apt-get update -y && \
+    apt-get clean && \
+    useradd -m venue
+
+COPY . /app
+
+WORKDIR /app
+
+RUN chown -R venue:venue /app && \
+    pip install -r requirements.txt
+
+USER venue
+
+CMD ["python", "app.py"]

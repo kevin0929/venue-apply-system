@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愛普雲場地預約系統</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        <span class="flash-icon">
+                            {% if category == 'success' %}
+                                ✔️
+                            {% elif category == 'error' %}
+                                ❌
+                            {% elif category == 'warning' %}
+                                ⚠️
+                            {% endif %}
+                        </span>
+                        <span class="flash-text">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="login-container">
+        <h2>愛普雲場地預約系統</h2>
+        <form action="{{ url_for('user_api.login') }}" method="POST">
+            <div class="input-group">
+                <label for="username">帳號</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">密碼</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="submit-btn">送出</button>
+        </form>
+    </div>
+</body>
+</html>
