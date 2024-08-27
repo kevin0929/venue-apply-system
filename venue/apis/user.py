@@ -1,6 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, flash, session
 
 from manager.user import *
+from utils.security import *
 
 
 __all__ = ['user_api']
@@ -16,6 +17,8 @@ def login():
 
         user_manager = UserManager()
         user = user_manager.get_user_by_username(username)
+        
+        # get user information
         match_password = user.password
         userid = user.userid
         role = user.role
@@ -41,7 +44,9 @@ def login():
 
 
 @user_api.route("/logout", methods=["GET", "POST"])
+@login_required("user")
 def logout():
     session.pop("userid", None)
+    session.pop("role", None)
 
     return redirect(url_for("login_page")) 

@@ -4,6 +4,8 @@ from manager.venue import *
 from manager.user import *
 from manager.application import *
 
+from utils.security import login_required
+
 
 __all__ = ['venue_api']
 
@@ -11,6 +13,7 @@ venue_api = Blueprint('venue_api', __name__)
 
 
 @venue_api.route("/<vid>/index/", methods=["GET", "POST"])
+@login_required("user")
 def index(vid):
     venue_manager = VenueManager()
     venues = venue_manager.get_all_venue()
@@ -29,6 +32,7 @@ def index(vid):
 
 
 @venue_api.route("/<vid>/apply/<datetime>", methods=["GET", "POST"])
+@login_required("user")
 def apply(vid, datetime):
     venue_manager = VenueManager()
     user_manager = UserManager()
@@ -51,6 +55,7 @@ def apply(vid, datetime):
 
 
 @venue_api.route("/<vid>/delete/<datetime>", methods=["GET", "POST"])
+@login_required("user")
 def delete(vid, datetime):
     venue_manager = VenueManager()
     user_manager = UserManager()
@@ -68,6 +73,7 @@ def delete(vid, datetime):
 
 
 @venue_api.route("/<vid>/queue/<datetime>", methods=["GET", "POST"])
+@login_required("user")
 def queue(vid, datetime):
     venue_manager = VenueManager()
     user_manager = UserManager()
@@ -90,6 +96,7 @@ def queue(vid, datetime):
 
 
 @venue_api.route("/<vid>/get_applications", methods=["GET"])
+@login_required("user")
 def get_applications(vid):
     app_manager = ApplicationManager()
 
