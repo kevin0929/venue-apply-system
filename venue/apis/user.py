@@ -18,6 +18,7 @@ def login():
         user = user_manager.get_user_by_username(username)
         match_password = user.password
         userid = user.userid
+        role = user.role
 
         '''
             1. if match_password is str, it means that this is correct query.
@@ -27,6 +28,7 @@ def login():
             if password == match_password:
                 # store user information into session
                 session["userid"] = userid
+                session["role"] = role
                 session.permanent = True
 
                 return redirect(url_for("venue_api.index", vid=1))
@@ -36,3 +38,10 @@ def login():
         else:
             flash(match_password[1], "error")
             return redirect(url_for("login_page"))
+
+
+@user_api.route("/logout", methods=["GET", "POST"])
+def logout():
+    session.pop("userid", None)
+
+    return redirect(url_for("login_page")) 
