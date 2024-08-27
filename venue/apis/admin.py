@@ -1,4 +1,10 @@
-from flask import Blueprint, request, redirect, url_for, flash, session, render_template, make_response
+from flask import (
+    Blueprint,
+    request,
+    redirect,
+    url_for,
+    render_template,
+)
 
 from manager.user import *
 from manager.venue import *
@@ -6,9 +12,9 @@ from manager.venue import *
 from utils.security import login_required
 
 
-__all__ = ['admin_api']
+__all__ = ["admin_api"]
 
-admin_api = Blueprint('admin_api', __name__)
+admin_api = Blueprint("admin_api", __name__)
 
 
 @admin_api.route("/index", methods=["GET", "POST"])
@@ -17,9 +23,9 @@ def index():
     return render_template("admin/index.html")
 
 
-'''
+"""
 The route above is all about venue management
-'''
+"""
 
 
 @admin_api.route("/venue/index", methods=["GET", "POST"])
@@ -36,7 +42,7 @@ def venue():
 def add_venue():
     if request.method == "POST":
         create_name = request.form.get("venue_name")
-    
+
     # add new venue
     venue_manager = VenueManager()
     venue_manager.add_venue(create_name)
@@ -68,9 +74,9 @@ def edit_venue(vid):
     return redirect(url_for("admin_api.venue"))
 
 
-'''
+"""
 The route above is all about venue management
-'''
+"""
 
 
 @admin_api.route("/user/index", methods=["GET", "POST"])
@@ -96,7 +102,7 @@ def add_user():
         "username": username,
         "password": password,
         "email": email,
-        "role": role
+        "role": role,
     }
     user_manager = UserManager()
     user_manager.add_user(userinfo)
@@ -113,11 +119,7 @@ def edit_user(userid):
         role = request.form.get("user_role")
 
     # edit user
-    userinfo = {
-        "username": username,
-        "email": email,
-        "role": role
-    }
+    userinfo = {"username": username, "email": email, "role": role}
     user_manager = UserManager()
     user = user_manager.get_user_by_id(userid)
     user_manager.edit_user(user, userinfo)

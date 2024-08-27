@@ -8,10 +8,9 @@ class UserManager:
     def __init__(self) -> None:
         self.session = connect_to_database()
         self.operationError = (None, "Some operation went wrong, please contact admin.")
-    
-    
+
     def get_all_user(self) -> User:
-        '''Get all user from db'''
+        """Get all user from db"""
 
         try:
             users = self.session.query(User).all()
@@ -23,13 +22,12 @@ class UserManager:
 
         return users
 
-
     def get_user_by_username(self, username: str) -> str:
-        '''Get password base on username'''
+        """Get password base on username"""
 
         if not username:
             return (None, "User name is required")
-        
+
         try:
             user = self.session.query(User).filter_by(username=username).first()
 
@@ -40,28 +38,26 @@ class UserManager:
 
         return user
 
-    
     def get_user_by_id(self, userid) -> User:
-        '''Get current user by session'''
+        """Get current user by session"""
 
         try:
             user = self.session.query(User).filter_by(userid=userid).first()
 
             if user is None:
-                return (None, f"Session has no information about loginer.")
+                return (None, "Session has no information about loginer.")
         except Exception:
             return self.operationError
-        
+
         return user
 
-    
     def add_user(self, userinfo) -> None:
-        '''Add user into db'''
+        """Add user into db"""
 
-        username = userinfo['username']
-        password = userinfo['password']
-        email = userinfo['email']
-        role = userinfo['role']
+        username = userinfo["username"]
+        password = userinfo["password"]
+        email = userinfo["email"]
+        role = userinfo["role"]
 
         try:
             user = User(username=username, password=password, email=email, role=role)
@@ -71,13 +67,12 @@ class UserManager:
             self.session.rollback()
             print(f"Error occurred: {e}")
 
-    
     def edit_user(self, user, userinfo) -> None:
-        '''Edit user info from db'''
+        """Edit user info from db"""
 
-        new_username = userinfo['username']
-        new_email = userinfo['email']
-        new_role = userinfo['role']
+        new_username = userinfo["username"]
+        new_email = userinfo["email"]
+        new_role = userinfo["role"]
 
         try:
             user.username = new_username
@@ -88,9 +83,8 @@ class UserManager:
             self.session.rollback()
             print(f"Error occurred: {e}")
 
-    
     def delete_user(self, userid) -> None:
-        '''Delete user from db'''
+        """Delete user from db"""
 
         try:
             user = self.session.query(User).filter_by(userid=userid).first()
@@ -99,4 +93,3 @@ class UserManager:
         except SQLAlchemyError as e:
             self.session.rollback()
             print(f"Error occurred: {e}")
-

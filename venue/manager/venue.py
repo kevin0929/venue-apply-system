@@ -8,9 +8,9 @@ class VenueManager:
     def __init__(self) -> None:
         self.session = connect_to_database()
         self.operationError = (None, "Some operation went wrong, please contact admin.")
-    
+
     def get_all_venue(self) -> Venue:
-        '''Get all venue from db'''
+        """Get all venue from db"""
 
         try:
             venues = self.session.query(Venue).order_by(Venue.vid.asc()).all()
@@ -21,10 +21,9 @@ class VenueManager:
             return self.operationError
 
         return venues
-    
 
     def get_venue_by_id(self, vid: int) -> Venue:
-        '''Get venue by id'''
+        """Get venue by id"""
 
         try:
             venue = self.session.query(Venue).filter_by(vid=vid).first()
@@ -33,12 +32,11 @@ class VenueManager:
                 return (None, "The vid does not match any venue.")
         except Exception:
             return self.operationError
-        
+
         return venue
-    
 
     def add_venue(self, create_name) -> None:
-        '''Add new venue into db'''
+        """Add new venue into db"""
 
         try:
             new_venue = Venue(name=create_name)
@@ -49,7 +47,7 @@ class VenueManager:
             print(f"Error occurred: {e}")
 
     def delete_venue(self, vid) -> None:
-        '''Delete venue from db'''
+        """Delete venue from db"""
 
         try:
             venue = self.session.query(Venue).filter_by(vid=vid).first()
@@ -59,9 +57,8 @@ class VenueManager:
             self.session.rollback()
             print(f"Error occurred: {e}")
 
-    
     def edit_venue(self, venue, new_name) -> None:
-        '''Modify venue's name'''
+        """Modify venue's name"""
 
         try:
             venue.name = new_name

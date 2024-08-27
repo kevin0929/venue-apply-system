@@ -4,9 +4,9 @@ from manager.user import *
 from utils.security import *
 
 
-__all__ = ['user_api']
+__all__ = ["user_api"]
 
-user_api = Blueprint('user_api', __name__)
+user_api = Blueprint("user_api", __name__)
 
 
 @user_api.route("/login", methods=["GET", "POST"])
@@ -17,16 +17,16 @@ def login():
 
         user_manager = UserManager()
         user = user_manager.get_user_by_username(username)
-        
+
         # get user information
         match_password = user.password
         userid = user.userid
         role = user.role
 
-        '''
+        """
             1. if match_password is str, it means that this is correct query.
             2. if tuple, it means there has something wrong, and we will get error msg.
-        '''
+        """
         if isinstance(match_password, str):
             if password == match_password:
                 # store user information into session
@@ -49,4 +49,4 @@ def logout():
     session.pop("userid", None)
     session.pop("role", None)
 
-    return redirect(url_for("login_page")) 
+    return redirect(url_for("login_page"))

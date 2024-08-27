@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, get_flashed_messages, session
+from flask import Flask, render_template, get_flashed_messages
 from datetime import timedelta
 
 from apis.user import user_api
@@ -7,16 +7,13 @@ from apis.venue import venue_api
 from apis.admin import admin_api
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = '12345'
+app.config["SECRET_KEY"] = os.urandom(24)
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
-api2prefix = [
-    (user_api, "/user"),
-    (venue_api, "/venue"),
-    (admin_api, "/admin")
-]
+api2prefix = [(user_api, "/user"), (venue_api, "/venue"), (admin_api, "/admin")]
 for api, prefix in api2prefix:
     app.register_blueprint(api, url_prefix=prefix)
+
 
 @app.route("/")
 def login_page():

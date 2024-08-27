@@ -1,16 +1,16 @@
 from functools import wraps
-from flask import abort, session, flash, redirect, url_for
+from flask import session, flash, redirect, url_for
 
 
 def login_required(role: str):
-    '''check user wheher has logged in by session'''
+    """check user wheher has logged in by session"""
 
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             username = session.get("userid")
             user_role = session.get("role")
-            
+
             if not username:
                 flash("Not Logged In!", "error")
                 return redirect(url_for("login_page"))

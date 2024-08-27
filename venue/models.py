@@ -1,6 +1,11 @@
-import enum
-
-from sqlalchemy import Column, Enum, Integer, MetaData, String, UniqueConstraint, ForeignKey
+from sqlalchemy import (
+    Column,
+    Integer,
+    MetaData,
+    String,
+    UniqueConstraint,
+    ForeignKey,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -46,10 +51,10 @@ class Application(Base):
     datetime = Column(String, nullable=False)
     order = Column(Integer, nullable=False)
 
-    '''
+    """
     Relationships
     user : one-to-many
     venue: one-to-many
-    '''
+    """
     user = relationship("User", back_populates="applications")
     venue = relationship("Venue", back_populates="applications")

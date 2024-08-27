@@ -13,5 +13,6 @@ def connect_to_database() -> Session():
 
     return session
 
+
 if __name__ == "__main__":
     connect_to_database()

@@ -16,7 +16,6 @@
     <div class="container">
         <h1 class="mt-4">愛普雲場地預約系統</h1>
 
-        <!-- 管理員入口 -->
         <div class="text-right mt-2">
             <a href="{{ url_for('admin_api.index') }}" class="btn btn-secondary"> 管理員入口 </a>
             <a href="{{ url_for('user_api.logout') }}" class="btn btn-secondary"> 登出 </a>
@@ -92,10 +91,12 @@
         $('#bookingModalLabel').text('預約選項 - ' + selectedDate);
         $('#applyingInfo').empty();
 
+        var idx = 1;
         if (names.length > 0) {
             names.each(function() {
                 var userName = $(this).text();
-                $('#applyingInfo').append('<p>' + userName + '</p>');
+                $('#applyingInfo').append('<p>' + idx + '. ' + userName + '</p>');
+                idx = idx + 1;
             });
         } else {
             $('#applyingInfo').html('<p>這天尚未被預約</p>');
