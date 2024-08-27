@@ -1,2 +1,7 @@
 # venue-apply-system
-A system for applying venue.
+
+### Setup
+
+```
+docker compose up -d
+```
