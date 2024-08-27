@@ -43,16 +43,21 @@
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="bookingModalLabel">預約選項</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button class="btn btn-primary" id="reserve">我想預約</button>
-                    <button class="btn btn-warning" id="queue">排隊預約</button>
-                    <button class="btn btn-danger" id="cancel">取消預約</button>
+                    <p class="font-weight-bold">目前預約的使用者有：<span class="text-muted">(依照順位排序)</span></p>
+                    <div id="applyingInfo" class="p-2 bg-light rounded"></div>
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary" id="reserve">我想預約</button>
+                        <button class="btn btn-warning text-white" id="queue">排隊預約</button>
+                        <button class="btn btn-danger" id="cancel">取消預約</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,12 +82,23 @@
     var selectedDate;
     $('#calendar').on('click', '.day', function() {
         var selectedDate = $(this).data('date');
+        var names = $(this).find('small');
 
         applyUrl = applyBaseUrl.replace('datetime', selectedDate);
         deleteUrl = deleteBaseUrl.replace('datetime', selectedDate);
         queueUrl = queueBaseUrl.replace('datetime', selectedDate);
 
         $('#bookingModalLabel').text('預約選項 - ' + selectedDate);
+        $('#applyingInfo').empty();
+
+        if (names.length > 0) {
+            names.each(function() {
+                var userName = $(this).text();
+                $('#applyingInfo').append('<p>' + userName + '</p>');
+            });
+        } else {
+            $('#applyingInfo').html('<p>這天尚未被預約</p>');
+        }
     });
 </script>
 </html>

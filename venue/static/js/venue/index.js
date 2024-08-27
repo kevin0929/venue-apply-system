@@ -4,21 +4,26 @@ $(document).ready(function() {
         var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
         var calendar = $('#calendar');
         calendar.empty();
-
+    
         for (var i = 0; i < firstDay; i++) {
             calendar.append('<div class="day"></div>');
         }
-
+    
         for (var day = 1; day <= daysInMonth; day++) {
             var dayDate = new Date(date.getFullYear(), date.getMonth(), day);
             var formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + day;
-
-            var application = applications.find(app => (app.date == formattedDate && app.venue_id == venueid));
-            if (application) {
+    
+            var dayApplications = applications.filter(app => (app.date == formattedDate && app.venue_id == venueid));
+    
+            if (dayApplications.length > 0) {
+                var content = day + '<br>';
+                dayApplications.forEach(application => {
+                    content += '<small>' + application.user + '</small><br>';
+                });
+    
                 calendar.append('<div class="day reserved" data-date="' + formattedDate + '" data-toggle="modal" data-target="#bookingModal">' +
-                    day + '<br><small>' + application.user + '</small></div>');
-            }
-            else {
+                    content + '</div>');
+            } else {
                 calendar.append('<div class="day" data-date="' + formattedDate + '" data-toggle="modal" data-target="#bookingModal">' + day + '</div>');
             }
         }
